@@ -1,4 +1,3 @@
-#include "trabalho_final_variaveis.c"
 #include <time.h>
 
 char* ConvertImportanciaParaPalavra( int imp ){
