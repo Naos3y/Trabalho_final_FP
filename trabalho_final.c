@@ -3,6 +3,27 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define NUM_TAREFAS 100
+#define PALAVRAS 50
+
+////////////////////////////////////////////////////////////////////////////////
+// Variaveis globais
+////////////////////////////////////////////////////////////////////////////////
+int dias[NUM_TAREFAS];
+int import[NUM_TAREFAS];
+int meses[NUM_TAREFAS];
+int anos[NUM_TAREFAS];
+
+  //Toda tarefa deve ser criada com o estado de não concluída
+  //Desta forma é possível colocar 0 (por fazer) em todos os elementos do vetor
+int estados[NUM_TAREFAS] = {0};
+
+char nomes[NUM_TAREFAS][PALAVRAS];
+int task_index = 0;
+
+////////////////////////////////////////////////////////////////////////////////
+// Funcoes
+////////////////////////////////////////////////////////////////////////////////
 char* ConvertImportanciaParaPalavra( int imp ){
   switch( imp ){
     case 1 : return "Alta";
@@ -72,23 +93,9 @@ int VerificarSeTarefaEstaAtrasada(int dias, int mes, int ano){
 
 }
 
-
+void SalvarParaFicheiro();
 
 int main(){
-  #define NUM_TAREFAS 100
-  #define PALAVRAS 50
-
-  int dias[NUM_TAREFAS];
-  int import[NUM_TAREFAS];
-  int meses[NUM_TAREFAS];
-  int anos[NUM_TAREFAS];
-
-   //Toda tarefa deve ser criada com o estado de não concluída
-   //Desta forma é possível colocar 0 (por fazer) em todos os elementos do vetor
-  int estados[NUM_TAREFAS] = {0};
-
-  char nomes[NUM_TAREFAS][PALAVRAS];
-  int task_index = 0;
 
   int imptc;
   int lista;
@@ -259,24 +266,7 @@ int main(){
         break;
 
       case 6: ;
-         FILE *DadosGuardados;
-
-         // use appropriate location if you are using MacOS or Linux
-         DadosGuardados = fopen("DadosGuardados","a+");
-
-         if(DadosGuardados == NULL)
-         {
-            printf("Nao foi possível abrir o ficheiro");
-            exit(1);
-         }else{
-           for( int j = 0 ; j < task_index; j++ ){
-             fprintf(DadosGuardados,"\n\nIdentificador: %d | Data: %d-%d-%d | Importancia: %s | Estado: %s | Descricao: %s",
-             (j+1),dias[j], meses[j], anos[j],ConvertImportanciaParaPalavra(import[j]),
-             ConvertEstadoEmPalavra(estados[j]),nomes[j] );
-           }
-           fclose(DadosGuardados);
-           printf("Dados Guardados com Sucesso!");
-         }
+        SalvarParaFicheiro();
         break;
 
       case 7: printf("Clique ENTER para fechar");
@@ -291,4 +281,29 @@ int main(){
     }
   }
  return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Funcoes
+////////////////////////////////////////////////////////////////////////////////
+void SalvarParaFicheiro(){
+  FILE *DadosGuardados;
+
+  // use appropriate location if you are using MacOS or Linux
+  DadosGuardados = fopen(".\\DadosGuardados.txt","a+");
+
+  if(DadosGuardados == NULL) {
+    printf("Nao foi possível abrir o ficheiro");
+  }else{
+
+    fprintf(DadosGuardados,"--- Identif ---     Data     ---   Importancia   ---   Estado   ---   Descricao   ---");
+    for( int j = 0 ; j < task_index; j++ ){
+      fprintf(DadosGuardados,"\n       %d         %d-%d-%d            %s           %s       %s",
+        (j+1),dias[j], meses[j], anos[j],ConvertImportanciaParaPalavra(import[j]),
+        ConvertEstadoEmPalavra(estados[j]),nomes[j] );
+    }
+
+    fclose(DadosGuardados);
+    printf("Dados Guardados com Sucesso!");
+  }
 }
