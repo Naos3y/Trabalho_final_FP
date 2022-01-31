@@ -46,8 +46,36 @@ int anoHoje(){
     return tms.tm_year + 1900;
 }
 
-int VerificarSeTarefaEstaAtrasada(int dias, int mes, int ano){
-  
+struct tm DataHoje(){
+  time_t t = time(NULL);
+  struct tm hoje = *localtime(&t);
+  hoje.tm_mon = hoje.tm_mon + 1;
+  hoje.tm_year = hoje.tm_year + 1900;
+  return hoje;
+}
+
+// 1 - Nao esta atrasado    0 - Atrasado
+int VerificarSeTarefaEstaAtrasada(int dia, int mes, int ano){
+  struct tm dataHoje = DataHoje();
+  // tm_year so é usado no dataHoje pois a função DataHoje retorna uma data "inteira", logo nao é um
+  // int. Desta forma seleciona apenas o ano/ mes / dia que queremos comprar.
+  if(dataHoje.tm_year > ano){
+    return 0;
+  }else if(dataHoje.tm_year < ano){
+    return 1;
+  }else{
+    if(dataHoje.tm_mon > mes){
+      return 0;
+    }else if(dataHoje.tm_mon < mes){
+      return 1;
+    }else{
+      if(dataHoje.tm_mday > dia){
+        return 0;
+      }else{
+        return 1;
+      }
+    }
+  }
 }
 
 void SalvarParaFicheiro();
@@ -81,13 +109,6 @@ int main(){
   int mes;
   int ano;
 
-  int contaImpAltaFazer = 0;
-  int contaImpMediaFazer = 0;
-  int contaImpBaixaFazer = 0;
-  int contaImpAltaConc = 0;
-  int contaImpMediaConc = 0;
-  int contaImpBaixaConc = 0;
-
   ////////////////////// (DEVELOP CODE) - REMOVER ANTES DE ENTREGAR ////////////
   import[task_index]  = 1;
   dias[task_index]    = 12;
@@ -100,7 +121,7 @@ int main(){
   import[task_index]  = 2;
   dias[task_index]    = 23;
   meses[task_index]   = 11 ;
-  anos[task_index]    = 2021 ;
+  anos[task_index]    = 2022 ;
   strcpy(nomes[task_index], "TAREFAS 2");
 
   task_index++;
@@ -108,7 +129,7 @@ int main(){
   import[task_index]  = 1;
   dias[task_index]    = 21;
   meses[task_index]   = 12 ;
-  anos[task_index]    = 2021 ;
+  anos[task_index]    = 2023 ;
   strcpy(nomes[task_index], "TAREFAS 3");
 
   task_index++;
@@ -212,31 +233,50 @@ int main(){
       case 5:
         printf("\nResumo das Tarefas");
 
+        int contaImpAltaFazer = 0;
+        int contaImpMediaFazer = 0;
+        int contaImpBaixaFazer = 0;
+        int contaImpAltaConc = 0;
+        int contaImpMediaConc = 0;
+        int contaImpBaixaConc = 0;
+        int altaAtrasada = 0;
+        int mediaAtrasada = 0;
+        int baixaAtrasada = 0;
+
         for( int j = 0 ; j < task_index; j++ ){
           if(import[j] == 1){
             if(estados[j] == 0){
               contaImpAltaFazer = contaImpAltaFazer + 1;
+              if(VerificarSeTarefaEstaAtrasada(dias[j], meses[j], anos[j]) == 0){
+                altaAtrasada = altaAtrasada +1;
+              }
             }else{
               contaImpAltaConc = contaImpAltaConc + 1;
             }
           }else if(import[j] == 2){
             if(estados[j] == 0){
               contaImpMediaFazer = contaImpMediaFazer + 1;
+              if(VerificarSeTarefaEstaAtrasada(dias[j], meses[j], anos[j]) == 0){
+                mediaAtrasada = mediaAtrasada +1;
+              }
             }else{
               contaImpMediaConc = contaImpMediaConc + 1;
             }
           }else if (import[j] == 3) {
             if(estados[j] == 0){
               contaImpBaixaFazer = contaImpBaixaFazer + 1;
+              if(VerificarSeTarefaEstaAtrasada(dias[j], meses[j], anos[j]) == 0){
+                baixaAtrasada = baixaAtrasada +1;
+              }
             }else{
               contaImpBaixaConc = contaImpBaixaConc + 1;
             }
           }
         }
         printf("\n-- Importancia --- PorFazer --- Atrasadas --- Concluidas --");
-        printf("\n--   Alta      ---    %d     ---           ---     %d      --",contaImpAltaFazer, contaImpAltaConc);
-        printf("\n--   Media     ---    %d     ---           ---     %d      --",contaImpMediaFazer,contaImpMediaConc);
-        printf("\n--   Baixa     ---    %d     ---           ---     %d      --",contaImpBaixaFazer,contaImpBaixaConc);
+        printf("\n--   Alta      ---    %d     ---    %d     ---     %d      --",contaImpAltaFazer,altaAtrasada, contaImpAltaConc);
+        printf("\n--   Media     ---    %d     ---    %d     ---      %d     --",contaImpMediaFazer,mediaAtrasada,contaImpMediaConc);
+        printf("\n--   Baixa     ---    %d     ---    %d     ---      %d    --",contaImpBaixaFazer,baixaAtrasada,contaImpBaixaConc);
         printf("\n\n");
         break;
 
