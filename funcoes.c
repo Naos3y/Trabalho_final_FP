@@ -78,9 +78,10 @@ void TabelaUm(){
   printf("\n2. Dar uma tarefa como concluida");
   printf("\n3. Consulta geral");
   printf("\n4. Tarefas nao concluidas, dada uma importancia");
-  printf("\n5. Resumo do estado das Tarefas");
-  printf("\n6. Guardar Dados\n");
-  printf("\n7. Sair do Programa\n\n");
+  printf("\n5. Tarefas nao concluidas e Atrasadas");
+  printf("\n6. Resumo do estado das Tarefas");
+  printf("\n7. Guardar Dados\n");
+  printf("\n8. Sair do Programa\n\n");
 }
 void TabelaDois(){
   printf("Insira o nome da tarefa(1), a sua importancia(2) e a data limite(3):\n");

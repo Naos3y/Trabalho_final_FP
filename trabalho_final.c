@@ -145,7 +145,7 @@ int main(){
           ConvertEstadoEmPalavra(estados[j]),nomes[j] );
         }
 
-        break;
+      break;
 
       case 4:
         TabelaTres();
@@ -165,8 +165,18 @@ int main(){
           }
         }
         break;
-
+      
       case 5:
+        for( int j = 0 ; j < task_index; j++ ){
+            if(VerificarSeTarefaEstaAtrasada(dias[j], meses[j], anos[j]) == 0){
+              if(estados[j] == 0){
+                printf("\nTarefas Atrasadas: %s", nomes[j]);
+              }
+            }
+          }
+      break;
+
+      case 6:
         printf("\nResumo das Tarefas");
 
         int contaImpAltaFazer = 0;
@@ -216,11 +226,11 @@ int main(){
         printf("\n\n");
         break;
 
-      case 6: ;
+      case 7: ;
         SalvarParaFicheiro();
         break;
 
-      case 7: printf("Clique ENTER para fechar");
+      case 8: printf("Clique ENTER para fechar");
         i = 0;
         break;
 
