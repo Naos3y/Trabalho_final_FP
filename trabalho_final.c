@@ -26,56 +26,7 @@ int task_index = 0;
 ////////////////////////////////////////////////////////////////////////////////
 // Prototipos
 ////////////////////////////////////////////////////////////////////////////////
-struct tm DataHoje(){
-  time_t t = time(NULL);
-  struct tm hoje = *localtime(&t);
-  hoje.tm_mon = hoje.tm_mon + 1;
-  hoje.tm_year = hoje.tm_year + 1900;
-  return hoje;
-}
-
-// 1 - Nao esta atrasado    0 - Atrasado
-int VerificarSeTarefaEstaAtrasada(int dia, int mes, int ano){
-  struct tm dataHoje = DataHoje();
-  // tm_year so é usado no dataHoje pois a função DataHoje retorna uma data "inteira", logo nao é um
-  // int. Desta forma seleciona apenas o ano/ mes / dia que queremos comprar.
-  if(dataHoje.tm_year > ano){
-    return 0;
-  }else if(dataHoje.tm_year < ano){
-    return 1;
-  }else{
-    if(dataHoje.tm_mon > mes){
-      return 0;
-    }else if(dataHoje.tm_mon < mes){
-      return 1;
-    }else{
-      if(dataHoje.tm_mday > dia){
-        return 0;
-      }else{
-        return 1;
-      }
-    }
-  }
-}
-
 void SalvarParaFicheiro();
-
-void TabelaDois(){
-  printf("Insira o nome da tarefa(1), a sua importancia(2) e a data limite(3):\n");
-  printf("A importancia deve ser introduzida com numeros de 1 a 3 sendo que:\n\n");
-  printf("1: Alta\n");
-  printf("2: Media\n");
-  printf("3: Baixa\n");
-  printf("\nA data limite deve ser introduzida no formato dia-mes-ano (ex: 24-03-2022)\n");
-}
-
-void TabelaTres(){
-  printf("-------------------- Tarefas nao concluidas, dada uma importancia --------------------");
-  printf("\n\nInsira a importancia da tarefa:");
-  printf("\n1: Alta\n");
-  printf("2: Media\n");
-  printf("3: Baixa\n");
-}
 
 
 int main(){
