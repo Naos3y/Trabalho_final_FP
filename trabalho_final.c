@@ -5,29 +5,27 @@
 
 #include "funcoes.h"
 
+//Trabalho realizado por: Bruno Luís Afonso Lopes
+//Unidade Curricular: Fundamentos de Programação 2021/2022
+//trabalho_final.c : Ficheiro onde se encontra o código principal, ou seja, onde se encontra a funçao main.
+
 #define NUM_TAREFAS 100
 #define PALAVRAS 50
 
-////////////////////////////////////////////////////////////////////////////////
 // Variaveis globais
-////////////////////////////////////////////////////////////////////////////////
 int dias[NUM_TAREFAS];
 int import[NUM_TAREFAS];
 int meses[NUM_TAREFAS];
 int anos[NUM_TAREFAS];
-
-  //Toda tarefa deve ser criada com o estado de não concluída
-  //Desta forma é possível colocar 0 (por fazer) em todos os elementos do vetor
+//Toda tarefa deve ser criada com o estado de não concluída
+//Desta forma é possível colocar 0 (por fazer) em todos os elementos do vetor
 int estados[NUM_TAREFAS] = {0};
 
 char nomes[NUM_TAREFAS][PALAVRAS];
 int task_index = 0;
 
-////////////////////////////////////////////////////////////////////////////////
 // Prototipos
-////////////////////////////////////////////////////////////////////////////////
 void SalvarParaFicheiro();
-
 
 int main(){
 
@@ -41,6 +39,7 @@ int main(){
   int ano;
 
   ////////////////////// (DEVELOP CODE) - REMOVER ANTES DE ENTREGAR ////////////
+  /*
   import[task_index]  = 1;
   dias[task_index]    = 12;
   meses[task_index]   = 12 ;
@@ -73,13 +72,18 @@ int main(){
   estados[task_index] = 1;
 
   task_index++;
+  */
   ///////////////// (DEVELOP CODE) - REMOVER ANTES DE ENTREGAR - FIM ///////////
   while(i == 1){
 
     TabelaUm();
     scanf("%d", &lista);
-    fflush(stdin); // para limpar o buffer para nao passar uma linha a frente
-    system("cls"); // limpar o menu, funciona apenas em windows
+    // para limpar o buffer para nao passar uma linha a frente, ou seja, aceita uma nova string
+    // sem fflush(stdin), o programa nao consegue ler uma nova tarefa introduzida pelo utilizador pois 
+    // ao selecionar a opçao 1 e clicar ENTER, a linha gerada por este ENTER vai ser lida pelo fgets
+    // ou seja, o nome vai ser nulo, e entao irá ser apresentada uma mensagem de "tarefa invalida"
+    fflush(stdin); 
+    // limpar o menu, funciona apenas em windows, apenas para aspeto visual.
 
     switch (lista){
 
@@ -90,39 +94,40 @@ int main(){
 
         if (nomes[task_index][0] == '\0' || nomes[task_index][0] == '\n') {
           printf("Tarefa Invalida\n");
-        }
-        else {
+        }else{
           printf("\nImportancia:");
           scanf("%d", &importancia);
           if(importancia > 3 || importancia < 0){
-            printf("Importancia Invalida\n");
-          } else{
+          printf("Importancia Invalida\n");
+          }else{
             printf("\nData:");
             scanf("%d-%d-%d", &dia, &mes, &ano);
             if(dia < 0 || dia > 31 || mes < 0 || mes > 12){
-              printf("Data Invalida\n");
+            printf("Data Invalida\n");
             }
-          }
-
-          while (getchar() != '\n'); //para nao correr os varios scanf e nao repetir 3 vezes por causa da data
-
-          dias[task_index] = dia;
-          import[task_index] = importancia;
-          meses[task_index] = mes;
-          anos[task_index] = ano;
-
-          task_index++;
-
-          system("cls");
+          }         
         }
+        
+          
+        while (getchar() != '\n'); //para nao correr os varios scanf e nao repetir 3 vezes por causa da data
+
+        dias[task_index] = dia;
+        import[task_index] = importancia;
+        meses[task_index] = mes;
+        anos[task_index] = ano;
+
+        task_index++;
+        
         break;
 
       case 2:
         printf("Introduza o identificador da tarefa que quer dar como concluida");
         int identificador;
-        for( int j = 0 ; j < task_index; j++ ){
-          printf("\n\nTarefa %d: ", (j+1));
-          printf("%s",nomes[j]);
+        for( int j = 0 ; j < task_index; j++ ){ 
+          if(estados[j]==0){
+            printf("\n\nTarefa %d: ", (j+1));
+            printf("%s",nomes[j]);  
+          }                    
         }
         scanf("%d", &identificador);
         if(identificador > 0 && identificador <= task_index){
@@ -133,9 +138,9 @@ int main(){
       case 3:
         printf("-------------------------------- Consulta geral -------------------------------------");
         printf("\n\n");
-        printf("--- Identif ---     Data     ---   Importancia   ---   Estado   ---   Descricao   ---");
+        printf("--- Identif ---     Data     ---   Importancia   ---   Estado   ---   Descricao   ---\n");
         for( int j = 0 ; j < task_index; j++ ){
-          printf("\n       %d         %d-%d-%d            %s           %s       %s",
+          printf("       %d         %d-%d-%d            %s           %s       %s",
           (j+1),dias[j], meses[j], anos[j],ConvertImportanciaParaPalavra(import[j]),
           ConvertEstadoEmPalavra(estados[j]),nomes[j] );
         }
@@ -205,9 +210,9 @@ int main(){
           }
         }
         printf("\n-- Importancia --- PorFazer --- Atrasadas --- Concluidas --");
-        printf("\n--   Alta      ---    %d     ---    %d     ---     %d      --",contaImpAltaFazer,altaAtrasada, contaImpAltaConc);
+        printf("\n--   Alta      ---    %d     ---    %d     ---      %d     --",contaImpAltaFazer,altaAtrasada, contaImpAltaConc);
         printf("\n--   Media     ---    %d     ---    %d     ---      %d     --",contaImpMediaFazer,mediaAtrasada,contaImpMediaConc);
-        printf("\n--   Baixa     ---    %d     ---    %d     ---      %d    --",contaImpBaixaFazer,baixaAtrasada,contaImpBaixaConc);
+        printf("\n--   Baixa     ---    %d     ---    %d     ---      %d     --",contaImpBaixaFazer,baixaAtrasada,contaImpBaixaConc);
         printf("\n\n");
         break;
 
@@ -229,9 +234,8 @@ int main(){
  return 0;
 }
 
-////////////////////////////////////////////////////////////////////////////////
+
 // Funcoes
-////////////////////////////////////////////////////////////////////////////////
 void SalvarParaFicheiro(){
   FILE *DadosGuardados;
 
