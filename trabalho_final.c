@@ -170,7 +170,8 @@ int main(){
         for( int j = 0 ; j < task_index; j++ ){
           if(VerificarSeTarefaEstaAtrasada(dias[j], meses[j], anos[j]) == 0){
             if(estados[j] == 0){
-              printf("\nTarefas Atrasadas: %s", nomes[j]);
+              printf("\nIdentificador: %d | ", (j+1));
+              printf("Nome Tarefa Atrasada: %s", nomes[j]);
             }
           }
         }
