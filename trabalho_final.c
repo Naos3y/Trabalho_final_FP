@@ -1,3 +1,7 @@
+//Trabalho realizado por: Bruno Luís Afonso Lopes
+//Unidade Curricular: Fundamentos de Programação 2021/2022
+//trabalho_final.c : Ficheiro onde se encontra o código principal, ou seja, onde se encontra a funçao main.
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -5,9 +9,6 @@
 
 #include "funcoes.h"
 
-//Trabalho realizado por: Bruno Luís Afonso Lopes
-//Unidade Curricular: Fundamentos de Programação 2021/2022
-//trabalho_final.c : Ficheiro onde se encontra o código principal, ou seja, onde se encontra a funçao main.
 
 #define NUM_TAREFAS 100
 #define PALAVRAS 50

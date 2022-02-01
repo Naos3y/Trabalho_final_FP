@@ -1,5 +1,3 @@
-#ifndef FUNCOES_H
-#define FUNCOES_H
 
 //Trabalho realizado por: Bruno Luís Afonso Lopes
 //Unidade Curricular: Fundamentos de Programação 2021/2022
@@ -12,9 +10,14 @@ contém apenas os prototipos necessarios para o correto funcionamento do program
 Não contém código executavel.
 
 */
+#ifndef FUNCOES_H
+#define FUNCOES_H
+
 
 //prototipos
 void TabelaUm();
+
+//char* é um ponteiro pois desta forma retorna a funçao retornar uma palavra em vez de um char.
 char* ConvertImportanciaParaPalavra(int imp);
 char* ConvertEstadoEmPalavra( int estado );
 struct tm DataHoje();

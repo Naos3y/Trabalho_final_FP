@@ -1,10 +1,6 @@
-#include <stdio.h>
-#include <time.h>
-#include "funcoes.h"
 
 //Trabalho realizado por: Bruno Luís Afonso Lopes
 //Unidade Curricular: Fundamentos de Programação 2021/2022
-
 /*
 funcoes.c: 
 
@@ -14,6 +10,12 @@ No entanto a criaçao desde ficheiro nao é suficiente, pois também precisamos 
 A ligaçao entre ambos é feita através de: #include "funcoes.h"
 
 */
+#include <stdio.h>
+#include <time.h>
+#include "funcoes.h"
+
+
+
 
 
 //Recebe um int (importancia), que é introduzido pelo utilizador e tranforma este valor numa palavra
