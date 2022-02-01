@@ -115,17 +115,19 @@ int main()
           {
             printf("Data Invalida\n");
           }
+          else
+          {
+            dias[task_index] = dia;
+            import[task_index] = importancia;
+            meses[task_index] = mes;
+            anos[task_index] = ano;
+
+            task_index++;
+          }
         }
       }
 
       while (getchar() != '\n'); //para nao correr os varios scanf e nao repetir 3 vezes por causa da data
-
-      dias[task_index] = dia;
-      import[task_index] = importancia;
-      meses[task_index] = mes;
-      anos[task_index] = ano;
-
-      task_index++;
 
       break;
 
