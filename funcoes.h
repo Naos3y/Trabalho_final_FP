@@ -13,20 +13,16 @@ Não contém código executavel.
 #ifndef FUNCOES_H
 #define FUNCOES_H
 
-
 //prototipos
 void TabelaUm();
 
 //char* é um ponteiro pois desta forma retorna a funçao retornar uma palavra em vez de um char.
-char* ConvertImportanciaParaPalavra(int imp);
-char* ConvertEstadoEmPalavra( int estado );
+char *ConvertImportanciaParaPalavra(int imp);
+char *ConvertEstadoEmPalavra(int estado);
 struct tm DataHoje();
 // 1 - Nao esta atrasado    0 - Atrasado
 int VerificarSeTarefaEstaAtrasada(int dia, int mes, int ano);
 void TabelaDois();
 void TabelaTres();
-
-
-
 
 #endif // FUNCOES_H
