@@ -26,6 +26,13 @@ int task_index = 0;
 
 // Prototipos
 void SalvarParaFicheiro();
+void PrecioneParaVoltar()
+{
+  printf("\nClique ENTER para voltar ao menu principal\n");
+  while (getchar() != '\n')
+    ;
+  fflush(stdin);
+}
 
 int main()
 {
@@ -39,42 +46,6 @@ int main()
   int mes;
   int ano;
 
-  ////////////////////// (DEVELOP CODE) - REMOVER ANTES DE ENTREGAR ////////////
-  /*
-  import[task_index]  = 1;
-  dias[task_index]    = 12;
-  meses[task_index]   = 12 ;
-  anos[task_index]    = 2021 ;
-  strcpy(nomes[task_index], "TAREFAS 1");
-
-  task_index++;
-
-  import[task_index]  = 2;
-  dias[task_index]    = 23;
-  meses[task_index]   = 11 ;
-  anos[task_index]    = 2022 ;
-  strcpy(nomes[task_index], "TAREFAS 2");
-
-  task_index++;
-
-  import[task_index]  = 1;
-  dias[task_index]    = 21;
-  meses[task_index]   = 12 ;
-  anos[task_index]    = 2023 ;
-  strcpy(nomes[task_index], "TAREFAS 3");
-
-  task_index++;
-
-  import[task_index]  = 1;
-  dias[task_index]    = 21;
-  meses[task_index]   = 12 ;
-  anos[task_index]    = 2021 ;
-  strcpy(nomes[task_index], "TAREFAS 4");
-  estados[task_index] = 1;
-
-  task_index++;
-  */
-  ///////////////// (DEVELOP CODE) - REMOVER ANTES DE ENTREGAR - FIM ///////////
   while (i == 1)
   {
 
@@ -127,13 +98,28 @@ int main()
         }
       }
 
-      while (getchar() != '\n'); //para nao correr os varios scanf e nao repetir 3 vezes por causa da data
-
+      while (getchar() != '\n')
+        ; //para nao correr os varios scanf e nao repetir 3 vezes por causa da data
+      PrecioneParaVoltar();
       break;
 
     case 2:
-      printf("Introduza o identificador da tarefa que quer dar como concluida");
+      printf("Introduza o identificador da tarefa que quer dar como concluida: ");
       int identificador;
+      int conta = 0;
+      while (conta < task_index)
+      {
+        if (estados[conta] == 0)
+        {
+          break;
+        }
+        conta = conta + 1;
+      }
+      if (conta == task_index)
+      {
+        printf("Todas as tarefas estao concluidas");
+        break;
+      }
       for (int j = 0; j < task_index; j++)
       {
         if (estados[j] == 0)
@@ -159,7 +145,7 @@ int main()
                (j + 1), dias[j], meses[j], anos[j], ConvertImportanciaParaPalavra(import[j]),
                ConvertEstadoEmPalavra(estados[j]), nomes[j]);
       }
-
+      PrecioneParaVoltar();
       break;
 
     case 4:
@@ -185,6 +171,7 @@ int main()
           }
         }
       }
+      PrecioneParaVoltar();
       break;
 
     case 5:
@@ -199,6 +186,7 @@ int main()
           }
         }
       }
+      PrecioneParaVoltar();
       break;
 
     case 6:
@@ -267,10 +255,12 @@ int main()
       printf("\n--   Media     ---    %d     ---    %d     ---      %d     --", contaImpMediaFazer, mediaAtrasada, contaImpMediaConc);
       printf("\n--   Baixa     ---    %d     ---    %d     ---      %d     --", contaImpBaixaFazer, baixaAtrasada, contaImpBaixaConc);
       printf("\n\n");
+      PrecioneParaVoltar();
       break;
 
-    case 7:;
+    case 7:
       SalvarParaFicheiro();
+      PrecioneParaVoltar();
       break;
 
     case 8:
@@ -279,10 +269,11 @@ int main()
       break;
 
     default:
-      if (lista > 7)
+      if (lista > 8)
       {
-        printf("Invalido, por favor escolha um numero de 1 a 7\n\n\n");
+        printf("Invalido, por favor escolha um numero de 1 a 8\n\n\n");
       }
+      PrecioneParaVoltar();
       break;
     }
   }
@@ -294,7 +285,6 @@ void SalvarParaFicheiro()
 {
   FILE *DadosGuardados;
 
-  // use appropriate location if you are using MacOS or Linux
   DadosGuardados = fopen(".\\DadosGuardados.txt", "a+");
 
   if (DadosGuardados == NULL)
